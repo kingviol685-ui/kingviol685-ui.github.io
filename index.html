@@ -1,11 +1,294 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>kingviol685-ui.github.io</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Tino Store - Shop quality products online.">
+  <title>Tino Store | Online Shop</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f6f7fb;
+      color: #171717;
+      line-height: 1.5;
+    }
+    header {
+      background: #111827;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 2px 12px rgba(0,0,0,.12);
+    }
+    .nav {
+      max-width: 1100px;
+      margin: auto;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .logo { font-size: 24px; font-weight: 800; }
+    .cart-btn {
+      border: 0;
+      background: #2563eb;
+      color: white;
+      padding: 11px 16px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .hero {
+      background: linear-gradient(135deg, #1d4ed8, #111827);
+      color: white;
+      text-align: center;
+      padding: 70px 20px;
+    }
+    .hero h1 { font-size: clamp(36px, 7vw, 64px); margin-bottom: 12px; }
+    .hero p { max-width: 650px; margin: auto; color: #dbeafe; }
+    .container { max-width: 1100px; margin: auto; padding: 45px 20px; }
+    .section-title { font-size: 30px; margin-bottom: 25px; }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .product {
+      background: white;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.07);
+    }
+    .product-img {
+      height: 180px;
+      border-radius: 12px;
+      background: #e5e7eb;
+      display: grid;
+      place-items: center;
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+    .product h3 { margin-bottom: 6px; }
+    .price { font-size: 20px; font-weight: 800; margin: 10px 0; }
+    .add {
+      width: 100%;
+      padding: 11px;
+      border: 0;
+      border-radius: 9px;
+      background: #111827;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .about {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      margin-top: 45px;
+    }
+    footer {
+      background: #111827;
+      color: #cbd5e1;
+      text-align: center;
+      padding: 30px 20px;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.6);
+      z-index: 20;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    .modal-box {
+      background: white;
+      max-width: 520px;
+      margin: 50px auto;
+      padding: 25px;
+      border-radius: 16px;
+    }
+    .close {
+      float: right;
+      border: 0;
+      background: transparent;
+      font-size: 28px;
+      cursor: pointer;
+    }
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 12px 0;
+      border-bottom: 1px solid #ddd;
+    }
+    .checkout { margin-top: 20px; }
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 7px 0 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 9px;
+      font: inherit;
+    }
+    textarea { min-height: 90px; resize: vertical; }
+    .primary {
+      width: 100%;
+      border: 0;
+      padding: 13px;
+      border-radius: 9px;
+      background: #2563eb;
+      color: white;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .empty { color: #6b7280; padding: 15px 0; }
+  </style>
 </head>
 <body>
-  <h1>Welcome to GitHub Pages</h1>
-  <p>This is my website.</p>
+
+<header>
+  <nav class="nav">
+    <div class="logo">Tino Store</div>
+    <button class="cart-btn" onclick="openCart()">Cart (<span id="cartCount">0</span>)</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <h1>Welcome to Tino Store</h1>
+  <p>Shop quality products with a simple, fast and mobile-friendly shopping experience.</p>
+</section>
+
+<main class="container">
+  <h2 class="section-title">Featured Products</h2>
+
+  <section class="products">
+    <article class="product">
+      <div class="product-img">🛍️</div>
+      <h3>Product One</h3>
+      <p>Quality product from Tino Store.</p>
+      <div class="price">₦10,000</div>
+      <button class="add" onclick="addToCart('Product One', 10000)">Add to Cart</button>
+    </article>
+
+    <article class="product">
+      <div class="product-img">🎧</div>
+      <h3>Product Two</h3>
+      <p>A great choice for everyday use.</p>
+      <div class="price">₦15,000</div>
+      <button class="add" onclick="addToCart('Product Two', 15000)">Add to Cart</button>
+    </article>
+
+    <article class="product">
+      <div class="product-img">📱</div>
+      <h3>Product Three</h3>
+      <p>Modern, useful and affordable.</p>
+      <div class="price">₦25,000</div>
+      <button class="add" onclick="addToCart('Product Three', 25000)">Add to Cart</button>
+    </article>
+  </section>
+
+  <section class="about">
+    <h2>About Tino Store</h2>
+    <p>Welcome to Tino Store. Browse our products, add what you want to your cart, and submit your order details at checkout.</p>
+  </section>
+</main>
+
+<footer>
+  <p>© 2026 Tino Store. All rights reserved.</p>
+</footer>
+
+<div class="modal" id="cartModal">
+  <div class="modal-box">
+    <button class="close" onclick="closeCart()">×</button>
+    <h2>Your Cart</h2>
+    <div id="cartItems" class="checkout"></div>
+    <h3 id="cartTotal" style="margin-top:15px;">Total: ₦0</h3>
+
+    <form id="orderForm" class="checkout" onsubmit="placeOrder(event)">
+      <h3>Customer Details</h3>
+      <input id="name" type="text" placeholder="Full name" required>
+      <input id="phone" type="tel" placeholder="Phone number" required>
+      <textarea id="address" placeholder="Delivery address" required></textarea>
+      <button class="primary" type="submit">Place Order</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  let cart = [];
+
+  function money(amount) {
+    return "₦" + amount.toLocaleString("en-NG");
+  }
+
+  function addToCart(name, price) {
+    cart.push({ name, price });
+    updateCart();
+    alert(name + " added to cart.");
+  }
+
+  function updateCart() {
+    document.getElementById("cartCount").textContent = cart.length;
+
+    const items = document.getElementById("cartItems");
+    if (!cart.length) {
+      items.innerHTML = '<p class="empty">Your cart is empty.</p>';
+    } else {
+      items.innerHTML = cart.map((item, index) => `
+        <div class="cart-item">
+          <span>${item.name}</span>
+          <strong>${money(item.price)}</strong>
+          <button type="button" onclick="removeItem(${index})">Remove</button>
+        </div>
+      `).join("");
+    }
+
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+    document.getElementById("cartTotal").textContent = "Total: " + money(total);
+  }
+
+  function removeItem(index) {
+    cart.splice(index, 1);
+    updateCart();
+  }
+
+  function openCart() {
+    document.getElementById("cartModal").style.display = "block";
+    updateCart();
+  }
+
+  function closeCart() {
+    document.getElementById("cartModal").style.display = "none";
+  }
+
+  function placeOrder(event) {
+    event.preventDefault();
+
+    if (!cart.length) {
+      alert("Please add at least one product to your cart.");
+      return;
+    }
+
+    const order = {
+      customer: document.getElementById("name").value,
+      phone: document.getElementById("phone").value,
+      address: document.getElementById("address").value,
+      items: cart,
+      total: cart.reduce((sum, item) => sum + item.price, 0),
+      createdAt: new Date().toISOString()
+    };
+
+    // Backend connection will be added here later.
+    console.log("Order ready for backend:", order);
+
+    alert("Order form submitted successfully. Backend/database connection will be added next.");
+  }
+
+  updateCart();
+</script>
+
 </body>
 </html>
